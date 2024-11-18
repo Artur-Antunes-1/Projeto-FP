@@ -487,13 +487,20 @@ def filtragem():
         except ValueError:
             print('Digite o valor em números.')
             return filtragem()
-        
-        print(f'\nTreinos realizados em {filtrar_tempo} minutos.\n')
+        tempo_existe=False
         for i in range(len(arquivo)):
             if arquivo[i].startswith('Tempo: '):
                 tempo=float(arquivo[i].split(': ')[1].replace('min','').strip())
                 if tempo==filtrar_tempo:
-                    print((''.join(arquivo[i-4:i+2]).strip()))      
+                    if not tempo_existe:
+                        print(f'\nTreinos realizados em {filtrar_tempo} minutos\n')
+                        tempo_existe=True
+                    print((''.join(arquivo[i-4:i+2]).strip()))
+        if not tempo_existe:
+            print('Digite o tempo de treinos que você já tenha realizado.')
+
+
+
 
 def main():
     contagens()
