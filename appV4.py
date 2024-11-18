@@ -498,6 +498,19 @@ def filtragem():
                     print((''.join(arquivo[i-4:i+2]).strip()))
         if not tempo_existe:
             print('Digite o tempo de treinos que você já tenha realizado.')
+    
+    if opcao==2:
+        try:
+            filtrar_distancia=float(input('Você deseja filtrar os treinos por qual distância? (Em km): '))                
+        except ValueError:
+            print('Digite o valor em números')
+            return filtragem()
+        print(f'\nTreinos realizados de {filtrar_distancia} km.')
+        for i in range(len(arquivo)):
+            if arquivo[i].startswith('Distância: '):
+                distancia=float(arquivo[i].split(':')[1].replace('Km','').strip())
+                if distancia==filtrar_distancia:
+                    print((''.join(arquivo[i-4:i+2]).strip()))
 
 
 
