@@ -505,12 +505,17 @@ def filtragem():
         except ValueError:
             print('Digite o valor em números')
             return filtragem()
-        print(f'\nTreinos realizados de {filtrar_distancia} km.')
+        distancia_existe=False
         for i in range(len(arquivo)):
             if arquivo[i].startswith('Distância: '):
                 distancia=float(arquivo[i].split(':')[1].replace('Km','').strip())
                 if distancia==filtrar_distancia:
+                    if not distancia_existe:
+                        print(f'\nTreinos realizados de {filtrar_distancia} km.')
+                        distancia_existe=True
                     print((''.join(arquivo[i-4:i+2]).strip()))
+        if  not distancia_existe:
+            print('Digite uma distância de treinos que você já realizou.')            
 
 
 
