@@ -50,6 +50,7 @@ def menu():
     print('[ 3 ] Atualizar')
     print('\033[1;31m[ 4 ] Excluir\033[m')
     print('\033[1;33m[ 5 ] Metas\033[m')
+    print('\033[1;33m[ 7 ] Filtragem de treinos\033[m')
     print('[ 0 ] Sair')
     
     opcao = int(input('Escolha a opção: '))
@@ -63,6 +64,8 @@ def menu():
         excluir()   
     elif opcao == 5:
         metas()
+    elif opcao == 7:
+        filtragem()
     elif opcao == 0:
         print('Saindo...')
         exit()
@@ -462,6 +465,35 @@ def excluir_meta():
     except Exception as e:
         print(f"Erro inesperado ao salvar a modificação: {e}")
         return metas()
+
+
+def filtragem():
+    try:
+        with open('dados.txt','r',encoding='utf-8') as file:
+            arquivo=file.readlines()
+    except FileNotFoundError:
+            return 'Arquivo não encontrado. '
+    if not arquivo:
+        print('Não foi registrado nenhum treino ou competição')        
+    print()
+    print('[ 1 ] Para filtrar  treinos por tempo.')
+    print('[ 2 ] Para filtrar treinos por distância.')
+    print('[ 3 ] Voltar.')
+    print()
+    opcao=int(input('Digite sua opção: '))
+    if opcao==1:
+        try:
+            filtrar_tempo=float(input('Você deseja filtrar os treinos por qual tempo? (Em minutos):  '))
+        except ValueError:
+            print('Digite o valor em números.')
+            return filtragem()
+        
+        print(f'\nTreinos realizados em {filtrar_tempo} minutos.\n')
+        for i in range(len(arquivo)):
+            if arquivo[i].startswith('Tempo: '):
+                tempo=float(arquivo[i].split(': ')[1].replace('min','').strip())
+                if tempo==filtrar_tempo:
+                    print((''.join(arquivo[i-4:i+2]).strip()))      
 
 def main():
     contagens()
