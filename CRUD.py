@@ -495,9 +495,14 @@ def filtragem():
                     if not tempo_existe:
                         print(f'\nTreinos realizados em {filtrar_tempo} minutos\n')
                         tempo_existe=True
-                    print((''.join(arquivo[i-4:i+2]).strip()))
-        if not tempo_existe:
+                    print((''.join(arquivo[i-4:i+3]).strip()))
+        if tempo_existe:
+            input('\nAperte ENTER para voltar para o menu de filtragem.')
+            filtragem()
+        else:
             print('Digite o tempo de treinos que você já tenha realizado.')
+            filtragem()
+
     
     if opcao==2:
         try:
@@ -513,15 +518,20 @@ def filtragem():
                     if not distancia_existe:
                         print(f'\nTreinos realizados de {filtrar_distancia} km.')
                         distancia_existe=True
-                    print((''.join(arquivo[i-4:i+2]).strip()))
-        if  not distancia_existe:
-            print('Digite uma distância de treinos que você já realizou.')            
-
+                    print((''.join(arquivo[i-3:i+4]).strip()))
+        if distancia_existe:
+            input('\nAperte ENTER para voltar ao menu de filtragem.')
+            filtragem()
+        else: 
+            print('Digite uma distância de treinos que você já realizou.')   
+            filtragem()         
+    if opcao == 3:
+        menu()
 
 
 
 def main():
     contagens()
-    menu()
+menu()
 
 main()
