@@ -1,4 +1,7 @@
 from os import system, name
+from datetime import datetime
+import random
+from time import sleep
 system("cls" if name == "nt" else "clear")
 
 cont_treinos = 0
@@ -50,7 +53,9 @@ def menu():
     print('[ 3 ] Atualizar')
     print('\033[1;31m[ 4 ] Excluir\033[m')
     print('\033[1;33m[ 5 ] Metas\033[m')
+    print("\033[1;33m[ 6 ] Sugestão\033[m")
     print('\033[1;33m[ 7 ] Filtragem de treinos\033[m')
+    print("\033[1;33m[ 8 ] Pace\033[m")
     print('[ 0 ] Sair')
     
     opcao = int(input('Escolha a opção: '))
@@ -64,8 +69,12 @@ def menu():
         excluir()   
     elif opcao == 5:
         metas()
+    elif opcao == 6:
+        aleatorio()
     elif opcao == 7:
         filtragem()
+    elif opcao == 8: 
+        pace()
     elif opcao == 0:
         print('Saindo...')
         exit()
@@ -153,9 +162,17 @@ def adicionar():
                 print('Entrada Inválida:')
                 return adicionar()
             
-            data=(str(input("Data da atividade no formato DD MM AAAA: ")).split())
-            datas="/".join(data)
-
+             # Valida a data
+            while True:
+                try:
+                    data = input("Data da atividade no formato DD MM AAAA: ")
+                    dia, mes, ano = map(int, data.split())
+                    data_valida = datetime(ano, mes, dia)  # Tenta criar uma data
+                    datas = data_valida.strftime("%d/%m/%Y")  # Formata a data para o formato desejado
+                    break  # Sai do loop se a data for válida
+                except ValueError:
+                    print("Data inválida. Por favor, insira uma data existente no formato DD MM AAAA.")
+            
             file.write(f"Data: {datas}\n")
 
             distancia = float(input("Distância percorrida em Km: "))    
@@ -201,6 +218,7 @@ def visualizar():
         print("Treinos/Competições registrados:\n")
         for linha in conteudo:
             print(linha.strip())  
+        sleep(3)    
 
     elif opcao == 2:
         id = input("ID do treino ou competição a ser visualizado: ").strip().title()  # Strip whitespace
@@ -218,6 +236,7 @@ def visualizar():
                 print()
                 found = True  # Marca a id como encontrada
                 break  # Sai do loop após encontrar a id
+        sleep(3) 
 
         if not found:  # Print apenas se o ID não foi encontrado
             print(f"Treino/Competição {id} não encontrado.")
@@ -377,6 +396,20 @@ def adicionar_meta():
             else:
                 print("Entrada Inválida:")
                 return adicionar_meta()
+            
+             # Adiciona o prazo para bater a meta
+            prazo = input("Digite até quando deseja bater a meta (formato Dia/Mes/Ano): ")
+            try:
+                prazo_data = datetime.strptime(prazo, "%d/%m/%Y")
+                hoje = datetime.now()
+                if prazo_data <= hoje:
+                    raise ValueError("A data deve ser futura.")
+                dias_restantes = (prazo_data - hoje).days
+                file.write(f"Prazo: {prazo} (Faltam {dias_restantes} dias)\n\n")
+                print(f"Meta adicionada! Faltam {dias_restantes} dias para alcançar o prazo.")
+            except ValueError as ve:
+                print(f"Erro: {ve}. Por favor, insira uma data válida e futura.")
+                return adicionar_meta()
 
     except ValueError as ve:
         print(f"Erro de valor: {ve}. Por favor, insira valores válidos.")
@@ -401,6 +434,7 @@ def visualizar_meta():
     for linha in conteudo_metas:
         print(linha.strip())  
     print()
+    sleep(2)    
     return metas()
 
 def excluir_meta():
@@ -466,6 +500,73 @@ def excluir_meta():
         print(f"Erro inesperado ao salvar a modificação: {e}")
         return metas()
 
+def pace():
+    try:
+        with open('dados.txt', 'r', encoding="utf-8") as file:
+            conteudo = file.readlines()
+    except FileNotFoundError:
+        print("Nenhum treino ou competição registrado para calcular o pace.")
+        return
+    except Exception as e:
+        print(f"Erro ao carregar os dados: {e}")
+        return
+
+    print("\nPace:")
+    for i in range(len(conteudo)):
+        if conteudo[i].startswith("ID: "):  
+            id_atividade = conteudo[i].strip()
+            tipo = "Treino" if "T" in id_atividade else "Competição"
+            distancia = 0
+            tempo = 0
+            
+            for j in range(i + 1, len(conteudo)):
+                if conteudo[j].startswith("Distância:"):
+                    distancia = float(conteudo[j].split(":")[1].replace("Km", "").strip())
+                elif conteudo[j].startswith("Tempo:"):
+                    tempo = float(conteudo[j].split(":")[1].replace("min", "").strip())
+                elif conteudo[j].startswith("ID:"):  
+                    break
+            
+            if distancia > 0 and tempo > 0:
+                pace = tempo / distancia
+                minutos = int(pace)
+                segundos = int((pace - minutos) * 60)
+                print(f"{id_atividade} ({tipo}) - Pace: {minutos}min {segundos:02d}s/km")
+            else:
+                print(f"{id_atividade} ({tipo}) - Dados insuficientes para calcular o pace.")
+    print()
+
+def aleatorio():
+    treinos_fixos = [
+    "Corrida de 5km com ritmo moderado",
+    "Treino intervalado de 10 x 400m",
+    "Corrida de 8km com inclinação leve",
+    "Corrida de 3km com ritmo acelerado",
+    "Treino de subida - 6 x 200m em subida",
+    "Corrida de recuperação de 5km em ritmo leve",
+    "Treino longo de 15km em ritmo confortável",
+    "Corrida de 2km em velocidade máxima",
+    "Treino intervalado de 5 x 800m",
+    "Corrida de 10km em ritmo progressivo"
+]
+    try:
+        
+        if not treinos_fixos:
+            raise ValueError("Não é possível selecionar um treino")
+        
+        treino = random.choice(treinos_fixos)
+        print()
+        print("Sugestão de treino:", treino)
+        print()
+        sleep(3)    
+        return menu()
+    except ValueError as ve:
+        print(f"Erro: {ve}")
+        menu()
+    
+    except Exception as e:
+        print(f"Erro inesperado: {e}")
+        menu()
 
 def filtragem():
     try:
@@ -473,8 +574,11 @@ def filtragem():
             arquivo=file.readlines()
     except FileNotFoundError:
             return 'Arquivo não encontrado. '
+
     if not arquivo:
-        print('Não foi registrado nenhum treino ou competição')        
+        print('Não foi registrado nenhum treino/competição') 
+        menu()
+
     print()
     print('[ 1 ] Para filtrar  treinos por tempo.')
     print('[ 2 ] Para filtrar treinos por distância.')
@@ -528,10 +632,8 @@ def filtragem():
     if opcao == 3:
         menu()
 
-
-
 def main():
     contagens()
-menu()
+    menu()
 
 main()
