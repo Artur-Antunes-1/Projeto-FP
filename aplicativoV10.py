@@ -632,6 +632,45 @@ def filtragem():
     if opcao == 3:
         menu()
 
+def extra():
+    cont = 0
+    try:
+        with open("musicas.txt", "r+", encoding="UTF-8")as file:
+            conteudo = file.readlines()
+            while True:
+            
+                print("digite [1] para recomendações de musicas para seu treino")
+                print("digite [2] para musicas aleatorias para seu treino")
+                print("digite [3] para escrever as proximas recomendações de musicas para seu treino")
+            
+                resposta = int(input("digite a resposta: "))     
+                
+                if resposta == 1:
+                    cont+=1
+                    print(conteudo[cont])
+
+                
+                elif resposta == 2:
+                    musica_aleatoria = random.choice(conteudo)    
+                    print(musica_aleatoria)
+                
+                elif resposta == 3:
+                    print("Escreva a musica para recomendar ")
+                    recomendar = input('Escreva de forma ("musica" - "cantor/banda") \n =>')
+                    file.write(recomendar)
+                
+                else:
+                    print("Responda [1]-[2]-[3]")
+                    continue
+
+    except FileNotFoundError:
+        print("Arquivo não encontrado")
+    except ValueError:
+        print("Use apenas numeros para essa resposta")
+
+extra()
+
+
 def main():
     contagens()
     menu()
