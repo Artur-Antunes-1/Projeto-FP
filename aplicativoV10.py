@@ -33,18 +33,6 @@ def contagens():
         pass  # Se o arquivo não existir, mantém as contagens em 0
     except Exception as e:
         print(f"Erro inesperado ao carregar contagens: {e}")
-    try:
-        with open('dados.txt', 'r', encoding="utf-8") as file:
-            conteudo = file.readlines()
-            for linha in conteudo:
-                if linha.startswith("ID: C"):  # Checa se a linha é uma competição
-                    cont_competicoes += 1
-                elif linha.startswith("ID: T"):  # Checa se a linha é um treino
-                    cont_treinos += 1
-    except FileNotFoundError:
-        pass  # Se o arquivo não existir, mantém as contagens em 0
-    except Exception as e:
-        print(f"Erro inesperado ao carregar contagens: {e}")
 
 def menu():
     print("\033[1;32m", 6*'-' + "MENU" + 6*'-', "\033[m")
@@ -56,7 +44,6 @@ def menu():
     print("\033[1;33m[ 6 ] Sugestão\033[m")
     print('\033[1;33m[ 7 ] Filtragem de treinos\033[m')
     print("\033[1;33m[ 8 ] Pace\033[m")
-    print("\033[1;33m[ 9 ] Recomendaçoes de musicas\033[m")
     print('[ 0 ] Sair')
     
     opcao = int(input('Escolha a opção: '))
@@ -76,12 +63,9 @@ def menu():
         filtragem()
     elif opcao == 8: 
         pace()
-    elif opcao == 9: 
-        extra()
     elif opcao == 0:
         print('Saindo...')
         exit()
-    
     else:
         print('Entrada Inválida:')
         return menu()
@@ -111,8 +95,6 @@ def excluir():
     if not id.startswith("C") and not id.startswith("T"):  # Se o ID não começar com "C" ou "T", print
         print("ID inválido. Por favor, insira um ID válido.")
         return excluir()
-    
-
     
     for i in range(len(conteudo)):
         if id in conteudo[i]:
@@ -508,6 +490,9 @@ def pace():
     try:
         with open('dados.txt', 'r', encoding="utf-8") as file:
             conteudo = file.readlines()
+            if not conteudo:
+                print("Nenhum treino/competição registrado.")
+                menu()
     except FileNotFoundError:
         print("Nenhum treino ou competição registrado para calcular o pace.")
         return
@@ -541,36 +526,39 @@ def pace():
     print()
 
 def aleatorio():
-    treinos_fixos = [
-    "Corrida de 5km com ritmo moderado",
-    "Treino intervalado de 10 x 400m",
-    "Corrida de 8km com inclinação leve",
-    "Corrida de 3km com ritmo acelerado",
-    "Treino de subida - 6 x 200m em subida",
-    "Corrida de recuperação de 5km em ritmo leve",
-    "Treino longo de 15km em ritmo confortável",
-    "Corrida de 2km em velocidade máxima",
-    "Treino intervalado de 5 x 800m",
-    "Corrida de 10km em ritmo progressivo"
-]
     try:
+        with open ('dados.txt', 'r', encoding="utf-8") as file:
+            conteudo = file.readlines()
+            if not conteudo:
+                raise ValueError("Nenhum treino/competição registrado.")
         
-        if not treinos_fixos:
-            raise ValueError("Não é possível selecionar um treino")
+        distancias = []
+        tempos = []
+        for line in conteudo:
+            if "Distância:" in line:
+                distancias.append(line.split(": ")[1].replace("Km", "").strip())
+            elif "Tempo:" in line:
+                tempos.append(line.split(": ")[1].replace("min", "").strip())
+
+        if not distancias or not tempos:
+            raise ValueError("Dados insuficientes para sugerir.")
         
-        treino = random.choice(treinos_fixos)
+        distancia_sugerida = random.choice(distancias)
+        tempo_sugerido = random.choice(tempos)
+
         print()
-        print("Sugestão de treino:", treino)
+        print(f"Distância sugerida: {distancia_sugerida} Km")
+        print(f"Tempo sugerido: {tempo_sugerido} min")
         print()
         sleep(3)    
         return menu()
+        
     except ValueError as ve:
         print(f"Erro: {ve}")
-        menu()
-    
+        return menu()
     except Exception as e:
         print(f"Erro inesperado: {e}")
-        menu()
+        return menu()
 
 def filtragem():
     try:
