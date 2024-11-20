@@ -56,6 +56,7 @@ def menu():
     print("\033[1;33m[ 6 ] Sugestão\033[m")
     print('\033[1;33m[ 7 ] Filtragem de treinos\033[m')
     print("\033[1;33m[ 8 ] Pace\033[m")
+    print("\033[1;33m[ 9 ] Recomendaçoes de musicas\033[m")
     print('[ 0 ] Sair')
     
     opcao = int(input('Escolha a opção: '))
@@ -75,9 +76,12 @@ def menu():
         filtragem()
     elif opcao == 8: 
         pace()
+    elif opcao == 9: 
+        extra()
     elif opcao == 0:
         print('Saindo...')
         exit()
+    
     else:
         print('Entrada Inválida:')
         return menu()
@@ -635,41 +639,65 @@ def filtragem():
 def extra():
     cont = 0
     try:
-        with open("musicas.txt", "r+", encoding="UTF-8")as file:
+        with open("Projeto-FP\musicas.txt", "r+", encoding="UTF-8")as file:
             conteudo = file.readlines()
             while True:
-            
-                print("digite [1] para recomendações de musicas para seu treino")
-                print("digite [2] para musicas aleatorias para seu treino")
-                print("digite [3] para escrever as proximas recomendações de musicas para seu treino")
-            
-                resposta = int(input("digite a resposta: "))     
+
+                print("\nDigite [1] para recomendações de musicas para seu treino")
+                print("Digite [2] para musicas aleatorias para seu treino")
+                print("Digite [3] para escrever as proximas recomendações de musicas para seu treino")
+                print("Digite [4] para voltar ao menu")
+
+
+                resposta = int(input("digite a escolha: "))
                 
                 if resposta == 1:
-                    cont+=1
-                    print(conteudo[cont])
+                    print(f"\n{conteudo[cont]}")
+                    while True:
+                        print(f"\nDeseja ver a proxima musica digite [1]")
+                        print(f"Deseja ver musica anterior digite [2]")
+                        print(f"Se deseja parar a fila [3]")
+                        
+                        resp = int(input("=>"))
+                        
+                        if resp == 1:
+                            cont+=1
+                            print(f"\n{conteudo[cont]}")
+                        
+                        elif resp == 2:
+                            cont-= 1
+                            print(f"\n{conteudo[cont]}")
+                            
+                        elif resp == 3:
+                            return extra()
 
-                
+                        else:
+                            print("Responda [1]-[2]-[3]")
+                            continue 
+
                 elif resposta == 2:
-                    musica_aleatoria = random.choice(conteudo)    
-                    print(musica_aleatoria)
-                
+                    musica_aleatoria = random.choice(conteudo)
+                    print(f"\n{musica_aleatoria}")
+                    continue
+                    
+            
                 elif resposta == 3:
-                    print("Escreva a musica para recomendar ")
-                    recomendar = input('Escreva de forma ("musica" - "cantor/banda") \n =>')
-                    file.write(recomendar)
+                    print("\nEscreva a musica para recomendar ")
+                    recomendar = input('\nEscreva na forma ("musica" - "cantor/banda") \n =>')
+                    file.write(f"\n{recomendar}")
+                    continue
                 
+                elif resposta == 4:
+                    return menu()
+
                 else:
-                    print("Responda [1]-[2]-[3]")
+                    print("Responda [1]-[2]-[3]-[4]")
                     continue
 
     except FileNotFoundError:
         print("Arquivo não encontrado")
     except ValueError:
         print("Use apenas numeros para essa resposta")
-
-extra()
-
 
 def main():
     contagens()
