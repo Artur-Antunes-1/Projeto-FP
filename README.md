@@ -45,7 +45,7 @@ O sistema sugere treinos aleatórios baseados no histórico registrado, incentiv
 ## **Descrição do Problema**
 Pedro, um atleta dedicado, enfrenta desafios para acompanhar seus treinos, tempos em provas e progresso ao longo do tempo. Para ajudá-lo a resolver esse problema, criamos um **Sistema de Gerenciamento de Treinos de Corrida**, que permite a Pedro registrar seus treinos e competições, monitorando sua evolução e ajudando a planejar novos desafios.
 
-![Menu do Programa]([https://github.com/Artur-Antunes-1/Projeto-FP/blob/main/image.png](https://github.com/Artur-Antunes-1/Projeto-FP/blob/main/Menu.png))  
+![Menu do Programa](https://github.com/Artur-Antunes-1/Projeto-FP/blob/dbd34612ed54a184e9320859f2e5ebdd20ebd6d0/Menu.png)
 
 ---
 
@@ -111,5 +111,60 @@ Essa funcionalidade exibe todos os paces registrados nos treinos de Pedro.
 Esta opção permite que Pedro saia do programa.
 
 ---
+# Recomendações de Músicas para Treinos
+
+Esta funcionalidade permite gerenciar recomendações de músicas para seus treinos, com opções para ver recomendações, adicionar novas músicas e receber recomendações aleatórias.
+
+---
+
+## **Como funciona:**
+
+### **Menu Principal**
+Ao acessar esta funcionalidade, você verá o seguinte menu:
+
+1. **Recomendações sequenciais de músicas**
+   - Exibe uma música recomendada de acordo com a sequência no arquivo.
+   - Opções:
+     - Ver próxima recomendação.
+     - Ver recomendação anterior.
+     - Retorne ao menu principal a qualquer momento.
+
+2. **Recomendações aleatórias de músicas**
+   - Mostra uma música aleatória entre as recomendações salvas no arquivo.
+
+3. **Adicionar novas recomendações**
+   - Permite adicionar novas músicas ao arquivo `musicas.txt`.
+
+4. **Voltar**
+   - Retorna ao menu principal do programa.
+
+---
+
+## **Detalhes das Opções**
+
+### **1. Recomendações Sequenciais**
+- O programa inicia exibindo a primeira recomendação do arquivo.
+- Você pode:
+  - **[1] Próxima recomendação:** Mostra a próxima música.
+  - **[2] Recomendação anterior:** Volta para a música anterior.
+  - **[3] Voltar:** Retorna ao menu principal.
+
+---
+
+### **2. Recomendações Aleatórias**
+- Escolhe e exibe uma música aleatória do arquivo `musicas.txt`.
+- Ideal para variar a rotina de treinos.
+
+---
+
+### **3. Adicionar Recomendações**
+- Adicione uma nova música ao arquivo seguindo o formato:
+
+  "Nome da Música" - "Artista/Banda"
+---
+## Fluxograma
+
+![Fluxograma](https://github.com/Artur-Antunes-1/Projeto-FP/blob/dbd34612ed54a184e9320859f2e5ebdd20ebd6d0/Fluxograma_bct_1.jpg)
+
 
 
