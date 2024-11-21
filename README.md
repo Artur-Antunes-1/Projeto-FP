@@ -107,12 +107,7 @@ Um menu de filtragem de treinos com base no tempo ou distância. As opções sã
 ### **Funcionalidade 8 - Pace**
 Essa funcionalidade exibe todos os paces registrados nos treinos de Pedro.
 
-### **Funcionalidade 0 - Sair**
-Esta opção permite que Pedro saia do programa.
-
----
-# Recomendações de Músicas para Treinos
-
+### **Funcionalidade 9 - Reconmendação de músicas para treinos**
 Esta funcionalidade permite gerenciar recomendações de músicas para seus treinos, com opções para ver recomendações, adicionar novas músicas e receber recomendações aleatórias.
 
 ---
@@ -161,6 +156,12 @@ Ao acessar esta funcionalidade, você verá o seguinte menu:
 - Adicione uma nova música ao arquivo seguindo o formato:
 
   "Nome da Música" - "Artista/Banda"
+
+---
+### **Funcionalidade 0 - Sair**
+Esta opção permite que Pedro saia do programa.
+
+
 ---
 ## Fluxograma
 
