@@ -630,6 +630,7 @@ def filtragem():
         menu()
     else:
         print('Digite um valor válido (1.2 ou 3)')
+        filtragem()
 
 def musicas():
     cont = 0

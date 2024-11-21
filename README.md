@@ -107,7 +107,7 @@ Um menu de filtragem de treinos com base no tempo ou distância. As opções sã
 ### **Funcionalidade 8 - Pace**
 Essa funcionalidade exibe todos os paces registrados nos treinos de Pedro.
 
-### **Funcionalidade 9 - Recomendação de músicas para treinos**
+### **Funcionalidade 9 - Recomendação de músicas para treinos **
 Esta funcionalidade permite gerenciar recomendações de músicas para seus treinos, com opções para ver recomendações, adicionar novas músicas e receber recomendações aleatórias.
 
 ---
