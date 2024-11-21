@@ -527,6 +527,8 @@ def pace():
             else:
                 print(f"{id_atividade} ({tipo}) - Dados insuficientes para calcular o pace.")
     print()
+    sleep(3)
+    menu()
 
 def aleatorio():
     try:
@@ -631,7 +633,7 @@ def extra():
     cont = 0
     lista = []
     try:
-        with open("Projeto-FP\musicas.txt", "r+", encoding="UTF-8")as file:
+        with open("musicas.txt", "r+", encoding="UTF-8")as file:
             conteudo = file.readlines()
             while True:
 
@@ -653,31 +655,36 @@ def extra():
                         print(f"Deseja ver a recomendação anterior digite [2]")
                         print(f"Voltar [3]")                        
                         
-                        resp = int(input("=>"))
+                        validar = int(input("=>"))
     
-                        if resp == 1:
+                        if validar == 1:
                             cont+=1
                             print(f"\n{conteudo[cont]}")
-                            respo = int(input("\nsalvar essa recomendação em uma lista [1]"))
+                            armazenar = int(input("\nsalvar essa recomendação em uma lista [1]: "))
+                            print("Se não quiser salvar digite qualquer numero")
                             
-                            if respo == 1:
+                            if armazenar == 1:
                                 lista.append(conteudo[cont])
+                                continue
                             
                             else:
                                 continue
 
-                        elif resp == 2:
+                        elif validar == 2:
                             cont-= 1
                             print(f"\n{conteudo[cont]}")
-                            respo = int(input("\nsalvar essa recomendação em uma lista [1]"))
+                            armazenar = int(input("\nsalvar essa recomendação em uma lista [1]: "))
+                            print("Se não quiser salvar digite qualquer numero")
                             
-                            if respo == 1:
+                            
+                            if armazenar == 1:
                                 lista.append(conteudo[cont])
+                                continue
                             
                             else:
                                 continue
                             
-                        elif resp == 3:
+                        elif validar == 3:
                             return extra()
 
                         else:
@@ -710,13 +717,14 @@ def extra():
                     return menu()
 
                 else:
-                    print("Responda [1]-[2]-[3]-[4]")
+                    print("Responda [1]-[2]-[3]-[4]-[5]")
                     continue
 
     except FileNotFoundError:
         print("Arquivo não encontrado")
     except ValueError:
         print("Use apenas numeros para essa resposta")
+        return extra()
 
 def main():
     contagens()
