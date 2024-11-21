@@ -1,0 +1,8 @@
+ID: C1
+Competição:
+Data: 12/12/2022
+Distância: 19.0Km
+Tempo: 30.0 min
+Localização: Recife
+Clima: Sol
+

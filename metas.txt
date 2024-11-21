@@ -1,0 +1,12 @@
+Meta 4:
+Tipo: Tempo e Distância
+Tempo: 10.0 min
+Distância: 20.0Km
+
+Prazo: 12/12/2025 (Faltam 386 dias)
+
+Meta 1:
+Tipo: Tempo
+Tempo: 10.0 min
+
+
