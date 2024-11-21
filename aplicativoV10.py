@@ -44,6 +44,7 @@ def menu():
     print("\033[1;33m[ 6 ] Sugestão\033[m")
     print('\033[1;33m[ 7 ] Filtragem de treinos\033[m')
     print("\033[1;33m[ 8 ] Pace\033[m")
+    print("\033[1;33m[ 9 ] Recomendação de musica\033[m")
     print('[ 0 ] Sair')
     
     opcao = int(input('Escolha a opção: '))
@@ -63,6 +64,8 @@ def menu():
         filtragem()
     elif opcao == 8: 
         pace()
+    elif opcao == 9:
+        extra()
     elif opcao == 0:
         print('Saindo...')
         exit()
@@ -626,35 +629,53 @@ def filtragem():
 
 def extra():
     cont = 0
+    lista = []
     try:
         with open("Projeto-FP\musicas.txt", "r+", encoding="UTF-8")as file:
             conteudo = file.readlines()
             while True:
 
                 print("\nDigite [1] para recomendações de musicas para seu treino")
-                print("Digite [2] para musicas aleatorias para seu treino")
+                print("Digite [2] para recomendação musicas aleatorias para seu treino")
                 print("Digite [3] para escrever as proximas recomendações de musicas para seu treino")
-                print("Digite [4] para voltar ao menu")
+                print("Digite [4] mostrar as recomendações de musicas salvas")
+                print("Digite [5] para voltar ao menu")
 
 
                 resposta = int(input("digite a escolha: "))
                 
                 if resposta == 1:
+                    
                     print(f"\n{conteudo[cont]}")
+                    
                     while True:
-                        print(f"\nDeseja ver a proxima musica digite [1]")
-                        print(f"Deseja ver musica anterior digite [2]")
-                        print(f"Se deseja parar a fila [3]")
+                        print(f"\nDeseja ver a proxima recomendação digite [1]")
+                        print(f"Deseja ver a recomendação anterior digite [2]")
+                        print(f"Voltar [3]")                        
                         
                         resp = int(input("=>"))
-                        
+    
                         if resp == 1:
                             cont+=1
                             print(f"\n{conteudo[cont]}")
-                        
+                            respo = int(input("\nsalvar essa recomendação em uma lista [1]"))
+                            
+                            if respo == 1:
+                                lista.append(conteudo[cont])
+                            
+                            else:
+                                continue
+
                         elif resp == 2:
                             cont-= 1
                             print(f"\n{conteudo[cont]}")
+                            respo = int(input("\nsalvar essa recomendação em uma lista [1]"))
+                            
+                            if respo == 1:
+                                lista.append(conteudo[cont])
+                            
+                            else:
+                                continue
                             
                         elif resp == 3:
                             return extra()
@@ -676,6 +697,16 @@ def extra():
                     continue
                 
                 elif resposta == 4:
+                    
+                    if not lista:
+                        print("\nAdicione as recomendações para poder mostrar")
+                        continue
+                    
+                    else:
+                        print(f"\nsuas recomendações escolhidas {lista}")
+                        return extra()
+
+                elif resposta == 5:
                     return menu()
 
                 else:
