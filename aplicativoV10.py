@@ -65,7 +65,7 @@ def menu():
     elif opcao == 8: 
         pace()
     elif opcao == 9:
-        extra()
+        musicas()
     elif opcao == 0:
         print('Saindo...')
         exit()
@@ -629,9 +629,8 @@ def filtragem():
     if opcao == 3:
         menu()
 
-def extra():
+def musicas():
     cont = 0
-    lista = []
     try:
         with open("musicas.txt", "r+", encoding="UTF-8")as file:
             conteudo = file.readlines()
@@ -640,8 +639,7 @@ def extra():
                 print("\nDigite [1] para recomendações de musicas para seu treino")
                 print("Digite [2] para recomendação musicas aleatorias para seu treino")
                 print("Digite [3] para escrever as proximas recomendações de musicas para seu treino")
-                print("Digite [4] mostrar as recomendações de musicas salvas")
-                print("Digite [5] para voltar ao menu")
+                print("Digite [4] para voltar ao menu")
 
 
                 resposta = int(input("digite a escolha: "))
@@ -651,41 +649,24 @@ def extra():
                     print(f"\n{conteudo[cont]}")
                     
                     while True:
+                        sleep(2)
                         print(f"\nDeseja ver a proxima recomendação digite [1]")
                         print(f"Deseja ver a recomendação anterior digite [2]")
                         print(f"Voltar [3]")                        
                         
-                        validar = int(input("=>"))
+                        validar = int(input("=> "))
     
                         if validar == 1:
                             cont+=1
                             print(f"\n{conteudo[cont]}")
-                            armazenar = int(input("\nsalvar essa recomendação em uma lista [1]: "))
-                            print("Se não quiser salvar digite qualquer numero")
-                            
-                            if armazenar == 1:
-                                lista.append(conteudo[cont])
-                                continue
-                            
-                            else:
-                                continue
 
                         elif validar == 2:
                             cont-= 1
                             print(f"\n{conteudo[cont]}")
-                            armazenar = int(input("\nsalvar essa recomendação em uma lista [1]: "))
-                            print("Se não quiser salvar digite qualquer numero")
                             
-                            
-                            if armazenar == 1:
-                                lista.append(conteudo[cont])
-                                continue
-                            
-                            else:
-                                continue
                             
                         elif validar == 3:
-                            return extra()
+                            return musicas()
 
                         else:
                             print("Responda [1]-[2]-[3]")
@@ -694,37 +675,30 @@ def extra():
                 elif resposta == 2:
                     musica_aleatoria = random.choice(conteudo)
                     print(f"\n{musica_aleatoria}")
+                    sleep(2)
                     continue
                     
             
                 elif resposta == 3:
                     print("\nEscreva a musica para recomendar ")
-                    recomendar = input('\nEscreva na forma ("musica" - "cantor/banda") \n =>')
+                    recomendar = input('\nEscreva na forma ("musica" - "cantor/banda") \n => ')
                     file.write(f"\n{recomendar}")
                     continue
-                
-                elif resposta == 4:
-                    
-                    if not lista:
-                        print("\nAdicione as recomendações para poder mostrar")
-                        continue
-                    
-                    else:
-                        print(f"\nsuas recomendações escolhidas {lista}")
-                        return extra()
 
-                elif resposta == 5:
+                elif resposta == 4:
                     return menu()
 
                 else:
-                    print("Responda [1]-[2]-[3]-[4]-[5]")
+                    print("Responda [1]-[2]-[3]-[4]")
                     continue
 
     except FileNotFoundError:
         print("Arquivo não encontrado")
     except ValueError:
         print("Use apenas numeros para essa resposta")
-        return extra()
+        sleep(2)
+        return musicas()
+
 
 def main():
     contagens()
