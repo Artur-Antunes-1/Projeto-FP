@@ -45,7 +45,7 @@ O sistema sugere treinos aleatórios baseados no histórico registrado, incentiv
 ## **Descrição do Problema**
 Pedro, um atleta dedicado, enfrenta desafios para acompanhar seus treinos, tempos em provas e progresso ao longo do tempo. Para ajudá-lo a resolver esse problema, criamos um **Sistema de Gerenciamento de Treinos de Corrida**, que permite a Pedro registrar seus treinos e competições, monitorando sua evolução e ajudando a planejar novos desafios.
 
-![Menu do Programa](https://github.com/Artur-Antunes-1/Projeto-FP/blob/main/image.png)  
+![Menu do Programa]([https://github.com/Artur-Antunes-1/Projeto-FP/blob/main/image.png](https://github.com/Artur-Antunes-1/Projeto-FP/blob/main/Menu.png))  
 
 ---
 
