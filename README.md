@@ -166,5 +166,7 @@ Ao acessar esta funcionalidade, você verá o seguinte menu:
 
 ![Fluxograma](https://github.com/Artur-Antunes-1/Projeto-FP/blob/dbd34612ed54a184e9320859f2e5ebdd20ebd6d0/Fluxograma_bct_1.jpg)
 
+[Clique aqui para visualizar melhor](https://miro.com/welcomeonboard/dWlPZ0JIamNMTGFnUXd0NHY5MnFGeW9LajZhQkZvRWY5YmFUcEVPaENCQmg3eHg4RVNYcTlJYVZqaFV3QlBiVHhQbUwxRDU5dGJhRkF2ODVSazVzS1ovV1NTUmVCK3Jjb0Y2bFNzV01RUWYvV1NFOTg3a0pGbE9zVCtlZWJOZDchZQ==?share_link_id=785626406808)
+
 
 
