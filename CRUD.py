@@ -642,7 +642,7 @@ def musicas():
                 print("\nDigite [1] para recomendações de musicas para seu treino")
                 print("Digite [2] para recomendação musicas aleatorias para seu treino")
                 print("Digite [3] para escrever as proximas recomendações de musicas para seu treino")
-                print("Digite [5] para voltar ao menu")
+                print("Digite [4] para voltar ao menu")
 
 
                 resposta = int(input("digite a escolha: "))
